@@ -1,1 +1,2 @@
-# vowing_admin_web
+# vowing-admin
+관리자단 작업, 회원가입관리, 광고업체 관리, 결제 관리
