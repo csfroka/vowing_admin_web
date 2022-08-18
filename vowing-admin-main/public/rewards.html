@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>보윙어드민</title>
+  <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+  <!--Firebase scripts-->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+
+  <!--Firebase config file-->
+  <script src="js/firebaseConfig.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- common scripts -->
+  <script src="js/common.js"></script>
+  <script src="js/rewards.js"></script>
+</head>
+
+<body class="sidebar-toggled">
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+      <img class="mx-1" src="images/favicon.png" width="3%" height="3%" />
+    <a class="navbar-brand mr-1" href="index.html">VOWING ADMIN</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#"
+      onclick="document.getElementById('sidebarInfo').style.display='block'">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+      </div>
+      </div>
+    </form>
+  </nav>
+
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav" id="sidebar">
+      <li class="nav-item">
+        <a class="nav-link">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>관리자페이지</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>광고관리</span>
+        </a>
+        <ul>
+          <li><a href="adList.html">광고목록</a></li>
+          <li><a href="bestAd.html">BEST 광고</a></li>
+          <li><a href="review.html">리뷰</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-list-ul"></i>
+          <span>공지, 배너</span></a>
+          <ul>
+            <li><a href="notice.html">공지사항</a></li>
+            <li><a href="event.html">이벤트</a></li>
+            <li><a href="banner.html">배너</a></li>
+          </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-calendar-check"></i>
+          <span>리워드</span></a>
+          <ul>
+            <li><a href="accountTransfer.html">계좌이체</a></li>
+            <li><a href="prize.html">당첨자</a></li>
+            <li><a href="deliver.html">배송</a></li>
+            <li><a href="rewards.html" class="active">리워드 지급</a></li>
+          </ul>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-question-circle"></i>
+          <span>회원관리</span></a>
+          <ul>
+            <li><a href="user.html">회원정보</a></li>
+            <li><a href="withDrawal.html">탈퇴회원</a></li>
+          </ul>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-users"></i>
+          <span>음성데이터</span></a>
+          <ul>
+            <li><a href="voiceData.html">음성데이터</a></li>
+          </ul>
+      </li> -->
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+
+            <div aria-orientation="vertical">
+              <i class="fas fa-table"></i>
+              리워드 지급
+              <button class="btn btn-success" style="float: right;" type="button" data-toggle="modal"
+                data-target="#newModal" data-name="add">
+                추가</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+              <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th width="80px">순번</th>
+                    <th>지급일시</th>
+                    <th width="60px">썸네일</th>
+                    <th>제목</th>
+                    <th>타이틀</th>
+                    <th>지급량</th>
+                    <th>대상</th>
+                  </tr>
+                </thead>
+                <tbody id ="getRewards"></tbody>
+                <!-- <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>22.06.01</td>
+                    <td><img src="https://apod.nasa.gov/apod/image/2202/AuroraPillars_Correia_960.jpg" class="thumbnail"></td>
+                    <td>VOWING</td>
+                    <td>음성인식 리워드 앱 VOWING</td>
+                    <td>500P</td>
+                    <td>100</td>
+                  </tr>
+                </tbody> -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © VOWING App 2022</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- 리워드 추가 modal popup -->
+    <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title modal-title-font">리워드 추가</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="card-body d-flex">
+                            <div class="detail-content2">
+                                <div>
+                                  <label>유저ID</label>
+                                    <div class="reward-div">
+                                      <input type="text" class="form-control" id="userId">
+                                      <button class="btn btn-info" id="addUserId">추가</button>
+                                    </div>
+                                    <!--button-->
+                                </div>
+                                <div class="align-items-start">
+                                    <label>대상</label>
+                                    <ul class="reward-ul" id="userIdResult"></ul>
+                                </div>
+                            </div>
+                            <div class="detail-content2">
+                              <div>
+                                <label>제목</label>
+                                <input type="text" class="form-control" id="title">
+                              </div>
+                              <div>
+                                <label>타이틀</label>
+                                <input type="text" class="form-control" id="name">
+                              </div>
+                              <div>
+                                <label>지급량</label>
+                                <input type="number" class="form-control" id="point">
+                              </div>
+                              <div>
+                                <label>썸네일</label>
+                                <input type="text" class="form-control" id="imageUrl">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-secondary" type="button" data-dismiss="modal" aria-label="Close">취소</button>
+                        <button class="btn btn-success" id="saveReward">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+</body>
+</html>
